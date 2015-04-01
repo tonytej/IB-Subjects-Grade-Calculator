@@ -22,20 +22,29 @@ def essfinalgrade(ia, p1, p2):
             return '{} {} {}{}{}{}{}'.format('Final grade:', e, '(', grade, '/', 100, ')')
 
 def desiredgradeia(ia, desired_grade):
-    pass
+    lst = []
+    for e in range(22, 46):
+        p2 = int(round((boundary[desired_grade][0] - ia * 0.476 - e * 0.667)/0.769))
+        lst.append([e, p2])
+    return '{}{}'.format('Your Paper 1 and Paper 2 scores should be one of these combinations of score: ', lst)
 
 def desiredgradepapers(p1, p2, desired_grade):
     ia = int(float(((boundary[desired_grade][0] - p1 * 0.667 - p2 * 0.769) / 0.476)))
     return '{} {} {} {} {}'.format('Your IA score should be a minimum of', ia, 'out of', 42, 'marks') if ia < 42 else 'Not possible'
 
 while True:
-    ans = raw_input('Final grade(0) or desired grade calculation(1)? ')
+    ans = raw_input('Final grade calculation (0), desired grade with IA calculation (1)'
+                    ', or desired grade with papers calculation (2?)')
     if ans == '0':
         ia = int(raw_input('IA score? (max 42 marks) '))
         p1 = int(raw_input('Paper 1 score? (max 45 marks) '))
         p2 = int(raw_input('Paper 2 score? (max 65 marks) '))
         print essfinalgrade(ia, p1, p2)
     elif ans == '1':
+        ia = int(raw_input('IA score? (max 42 marks) '))
+        desired_grade = int(raw_input('Desired grade? (1-7) '))
+        print desiredgradeia(ia, desired_grade)
+    elif ans == '2':
         p1 = int(raw_input('Paper 1 score? (max 45 marks) '))
         p2 = int(raw_input('Paper 2 score? (max 65 marks) '))
         desired_grade = int(raw_input('Desired grade? (1-7) '))
